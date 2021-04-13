@@ -1,0 +1,42 @@
+DOCUMENTATIONS:
+
+    discord.py :
+    https://discordpy.readthedocs.io/en/stable/index.html
+
+    youtube-dl :
+    https://github.com/ytdl-org/youtube-dl
+
+    ffmpeg :
+    http://ffmpeg.org/ffmpeg.html#Options
+
+
+TUTORIALS FOLLOWED:
+
+    https://youtube.com/playlist?list=PLw5pRu2B6YFUkX9nrhc4gCVkxm6fYS_GY
+    
+    https://youtu.be/vKcBy06fLQY
+
+    https://youtube.com/playlist?list=PLW3GfRiBCHOhfVoiDZpSz8SM_HybXRPzZ
+
+WEB RESOURCES AND AMAZING PEOPLE WHO HAVE HELPED:
+
+    ffmpeg streaming :
+    https://trac.ffmpeg.org/wiki/StreamingGuide
+
+    streaming youtube audio instead of downloading:
+    https://stackoverflow.com/a/60832287/13352978
+
+    getting info from youtube-dl:
+    https://stackoverflow.com/questions/23727943/how-to-get-information-from-youtube-dl-in-python
+
+    playing next song without getting the "Already playing audio" error:
+    https://stackoverflow.com/a/60930529/13352978
+
+    FFMPEG executable sometimes gets corrupt packets from the webhost causing it to terminate, a fix here:
+    https://stackoverflow.com/a/66278238/13352978
+
+
+
+
+
+
