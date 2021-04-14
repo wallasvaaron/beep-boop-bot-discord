@@ -14,7 +14,6 @@ class Talking(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(pass_context=True)
     async def displayembed(self,ctx):
         embed = discord.Embed(
             title='Title',

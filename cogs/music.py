@@ -12,12 +12,38 @@ class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.queue_list = []
-        self.playing = False
+        # the discord method .is_playing(), which returns a 
+        # boolean value that signifies if any sound is playing 
+        # in the voice channel the bot is in, doesn't 
+        # always work: I added this manual boolean to recreat the 
+        # functionality in a reliable way
+        self.playing = False  
 
     # functions
     async def voice(self, ctx):
         return get(self.bot.voice_clients, guild=ctx.guild)
     
+    # searches inputted songs 
+    def add_to_queue(self, song_input, queue_placement: int = None):
+        with youtube_dl.YoutubeDL(format_options.ytdl_format_options) as ydl:
+            url_info = ydl.extract_info(song_input, download=False)
+
+        if 'entries' in url_info: 
+            # if 'entries' are found from the info, a playlist was inputted, 
+            # loop through all the songs all the songs in the playlist and add to the queue list
+            playlist_info = url_info['entries']
+
+            for i, item in enumerate(playlist_info):
+                if queue_placement == None:
+                    self.queue_list.append((playlist_info[i]["formats"][0]["url"], playlist_info[i]['title']))
+                else:
+                    self.queue_list.insert(queue_placement,(playlist_info[i]["formats"][0]["url"], playlist_info[i]['title']))
+        else: # a url for a single song inputted
+            if queue_placement == None:
+                self.queue_list.append((url_info["formats"][0]["url"], url_info['title']))
+            else:
+                self.queue_list.insert(queue_placement,(url_info["formats"][0]["url"], url_info['title']))
+
     # events
     @commands.Cog.listener()
     async def on_ready(self):
@@ -54,28 +80,28 @@ class Music(commands.Cog):
         else:
             await botsays(ctx,"I don't think I'm currently connected to a voice channel. Use !join to invite me to your party.")
 
-    @commands.command(name='play',pass_context=True, aliases=['p'], help='Adds the given song to queue and resumes music if none was playing.')
-    async def play(self, ctx, *, song_input: str):
+    @commands.command(name='play',pass_context=True, aliases=['p'], help='Adds the given song(s) to queue and starts playing it if no music was previously playing.')
+    async def play(self, ctx, *, song_input: str = ''):
         voice = await self.voice(ctx)
+        # adding input(s) to queue
+        if song_input != '':
+            self.add_to_queue(song_input)
+        else:
+            if self.queue_list != [] and self.playing == False:
+                self.resume(ctx)
+                return
 
+        if self.queue_list == []:
+            await botsays(ctx, 'No songs are queued. After the !play command, paste a url of a song or playlist - or keywords to search from YouTube with - to add the song(s) to queue and start playing!')
+            return
+        
+        
         # is called after a song finishes playing
         def after_song(error):
             if error != None: # error has ocurred with the playing of the song
                 print(f'Error while playing song: {error}')
 
             asyncio.run_coroutine_threadsafe(next_song(), self.bot.loop).result()
-
-        def add_to_queue(song_input):
-            with youtube_dl.YoutubeDL(format_options.ytdl_format_options) as ydl:
-                url_info = ydl.extract_info(song_input, download=False)
-
-            if 'entries' in url_info:
-                playlist_info = url_info['entries']
-
-                for i, item in enumerate(playlist_info):
-                    self.queue_list.append((playlist_info[i]["formats"][0]["url"], playlist_info[i]['title']))
-            else:
-                self.queue_list.append((url_info["formats"][0]["url"], url_info['title']))
 
         # if there are more songs in queue, call play_song() again
         # if not, call queue() to get the message for an empty queue
@@ -92,7 +118,7 @@ class Music(commands.Cog):
                 self.playing = False
                 await self.queue(ctx)
                 
-        # plays the first song of the queue, after song finished calls after_song()
+        # plays the first song of the queue, after song finished calls after_song() and passes the error as an argument
         async def play_song():
             voice.play(discord.FFmpegPCMAudio(self.queue_list[0][0], **format_options.ffmpeg_options), after=after_song)
             voice.source = discord.PCMVolumeTransformer(voice.source)
@@ -102,7 +128,7 @@ class Music(commands.Cog):
         # if bot isn't in a voice channel, join the vc the user is in
         if voice == None:
             if not ctx.message.author.voice:
-                await ctx.send("You're not connected to a voice channel. Connect to a channel and try the !play command again!")
+                await botsays(ctx, "You're not connected to a voice channel. Connect to a channel and try the !play command again!")
                 return
             else:
                 await self.join(ctx)
@@ -110,18 +136,19 @@ class Music(commands.Cog):
         
         # if bot isn't playing music when !play is called, play the first song from the queue
         # if bot is playing music, tell the user the songs they inputted were added to the queue
-        add_to_queue(song_input)
-    
         if not self.playing:
             self.playing = True
             await play_song()
         else: # if playing music
             await botsays(ctx, 'Song(s) added to queue!')
 
-    # X
     @commands.command(name='playtop',pass_context=True, aliases=['pt', 'ptop'], help='Adds the given song **to the top** of the queue.')
     async def playtop(self, ctx, input_url: str):
-        pass
+        if self.queue_list == []:
+            await botsays(ctx, 'The queue was empty. I added inputted song(s) to queue and started playing!')
+            self.play(input_url)
+        else:
+            self.add_to_queue(input_url, queue_placement=0)
 
     # X
     @commands.command(name='playskip',pass_context=True, aliases=['ps', 'pskip', 'playnow', 'pn'], help='Adds the given song **to the top** of the queue and skips the one currently playing.')
@@ -179,23 +206,20 @@ class Music(commands.Cog):
         voice = await self.voice(ctx)
 
         if len(self.queue_list)==1: # only one song left in queue, the one we're currently playing
-            # print("Song skipped, no more songs in queue")
             await botsays(ctx, f'**Skipped:** {self.queue_list[0][1]}\n{self.queue()}')
             self.playing = False
             voice.pause()
             voice.stop()
-        elif self.playing and len(self.queue_list)>1: # if
-            # print("Song skipped")
+        elif self.playing and len(self.queue_list)>1: # queue has more than the song we're playing in it
             await botsays(ctx, f'**Skipped** {self.queue_list[0][1]}')
             voice.pause()
             voice.stop()
         else:
-            # print('No music playing, failed to skip')
             await botsays(ctx, 'Cant skip while no songs are playing, add some with the !play command.')
 
     @commands.command(name='queue',pass_context=True, aliases=['q'], help='Shows the current queue and the currently playing song.')
     async def queue(self, ctx):
-        if len(self.queue_list)==0:
+        if len(self.queue_list)==0: 
             current_queue = 'There are currently **no songs in queue**, add some with the !play command!'
         else:
             current_queue = f'**Currently playing:** {self.queue_list[0][1]}'

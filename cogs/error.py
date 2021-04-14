@@ -18,24 +18,24 @@ class Error(commands.Cog):
     async def on_ready(self):
         print('Error: ready')
 
-    # @commands.Cog.listener()
-    # async def on_command_error(self, ctx, error):
-    #     if hasattr(ctx.command, 'on_error'):
-    #         return
-    #     error = getattr(error, 'original', error)
-    #     print(f'\nERROR: {error}')
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, error):
+        if hasattr(ctx.command, 'on_error'):
+            return
+        error = getattr(error, 'original', error)
+        print(f'\nERROR: {error}')
         
-    #     if isinstance(error, commands.CheckFailure):
-    #         await botsays(ctx, "You do not have permission to use this command. Type !permissions to see a list of command restrictions.")
-    #         return
+        if isinstance(error, commands.CheckFailure):
+            await botsays(ctx, "You do not have permission to use this command. Type !permissions to see a list of command restrictions.")
+            return
 
-    #     if isinstance(error, commands.MissingRequiredArgument):
-    #         await botsays(ctx, "The command was inputted incorrectly. Type !help <command> to get information on how to use a command.")
-    #         return
+        if isinstance(error, commands.MissingRequiredArgument):
+            await botsays(ctx, "The command was inputted incorrectly. Type !help <command> to get information on how to use a command.")
+            return
 
-    #     if isinstance(error, commands.CommandNotFound):
-    #         await botsays(ctx, "Command not recognized. Type !help for a list of commands.")
-    #         return
+        if isinstance(error, commands.CommandNotFound):
+            await botsays(ctx, "Command not recognized. Type !help for a list of commands.")
+            return
         
         
 
