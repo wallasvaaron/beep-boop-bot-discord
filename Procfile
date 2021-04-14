@@ -1,3 +1,1 @@
-python
-discord.py
-youtube-dl
+worker:python main.py
