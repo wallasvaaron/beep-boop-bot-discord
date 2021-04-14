@@ -6,8 +6,6 @@ import os
 
 from cogs.talking import botsays
 
-
-TOKEN = os.getenv('TOKEN')
 COMMAND_PREFIX = '?'
 
 
@@ -40,4 +38,4 @@ for filename in os.listdir('./cogs'):
         bot.load_extension(f'cogs.{str.lower(filename[:-3])}')
         list_of_cogs.append(str.lower(filename[:-3]))
 
-bot.run(TOKEN)
+bot.run(os.environ['TOKEN'])
