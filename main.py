@@ -4,7 +4,7 @@ from discord.ext import commands
 from discord.utils import get
 import os
 
-from cogs.talking import botsays
+#from cogs.talking import botsays
 
 COMMAND_PREFIX = '?'
 
@@ -28,7 +28,7 @@ async def restrictions(ctx):
         for k in i[1]:
             roles += f'    {ctx.guild.get_role(role_id=k)}\n'
         output += f'\n{i[0]}            {roles}'
-    await botsays(ctx, output)
+    #await botsays(ctx, output)
 
 
 list_of_cogs = []
