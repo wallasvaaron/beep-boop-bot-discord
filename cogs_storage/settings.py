@@ -7,8 +7,8 @@ from discord.utils import get
 
 from cogs.talking import botsays
 
-
-class Settings(commands.Cog, help='Change the bot\'s settings'):
+# help='Change the bot\'s settings'
+class Settings(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

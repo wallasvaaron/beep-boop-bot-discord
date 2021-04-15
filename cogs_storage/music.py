@@ -8,7 +8,8 @@ import asyncio
 import options.format_options as format_options
 from cogs.talking import botsays
 
-class Music(commands.Cog, help='Play audio in a voice channel'):
+# help='Play audio in a voice channel'
+class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.queue_list = []

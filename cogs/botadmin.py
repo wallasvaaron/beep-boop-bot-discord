@@ -24,7 +24,8 @@ async def is_a_real_cog(ctx,cog): # PASS CTX AS ARGUMENT
         await botsays(ctx, f'{str.title(cog)} cog doesn\'t exist.\nAvailable cogs: {list_of_cogs}')
         return
 
-class BotAdmin(commands.Cog, help='Change bot admin settings'):
+# help='Change bot admin settings'
+class BotAdmin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         

@@ -5,8 +5,8 @@ import sys
 async def botsays(ctx, input):
     await ctx.send(input) #, delete_after=20)
 
-
-class Talking(commands.Cog, help='Chat with the bot'):
+# help='Chat with the bot'
+class Talking(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

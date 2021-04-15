@@ -8,7 +8,8 @@ import options.cog_options as cog_options
 from cogs.talking import botsays
 from cogs.botadmin import list_of_restrictions
 
-class ServerAdmin(commands.Cog, help='Change server admin settings'):
+# help='Change server admin settings'
+class ServerAdmin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     

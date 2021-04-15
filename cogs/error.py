@@ -8,8 +8,8 @@ import sys
 
 from cogs.talking import botsays
 
-
-class Error(commands.Cog, help='Get error messages and debug ingormation'):
+# help='Get error messages and debug ingormation'
+class Error(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
