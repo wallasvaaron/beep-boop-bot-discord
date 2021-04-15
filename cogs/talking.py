@@ -36,7 +36,7 @@ class Talking(commands.Cog):
     async def hello(self,ctx):
         await botsays(ctx, f'Hello, {ctx.message.author.mention}')
         await self.displayembed(ctx)
-        sys.stderr.write("HELLO SAID!")
+        print("HELLO SAID!")
 
 
 def setup(bot):

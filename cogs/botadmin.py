@@ -53,7 +53,7 @@ class BotAdmin(commands.Cog):
     # commands
     @cog.command(name='load', help='Loads the given cog: !cog load <cogname>')
     async def load(self, ctx, cog):
-        if is_a_real_cog(ctx, cog):
+        if await is_a_real_cog(ctx, cog):
             try:
                 self.bot.load_extension(f'cogs.{self.cog}')
                 await botsays(ctx, f'{str.title(self.cog)} cog loaded.')
@@ -66,7 +66,7 @@ class BotAdmin(commands.Cog):
 
     @cog.command(name='unload', help='Unloads the given cog: !cog unload <cogname>')
     async def unload(self, ctx, cog):
-        if is_a_real_cog(ctx,cog):
+        if await is_a_real_cog(ctx,cog):
             try:
                 self.bot.unload_extension(f'cogs.{self.cog}')
                 await botsays(ctx, f'{str.title(self.cog)} cog unloaded.')
@@ -79,7 +79,7 @@ class BotAdmin(commands.Cog):
 
     @cog.command(name='reload', help='Reloads the given cog: !cog reload <cogname>')
     async def reload(self, ctx, cog):
-        if is_a_real_cog(ctx, cog):
+        if await is_a_real_cog(ctx, cog):
             try:
                 self.bot.unload_extension(f'cogs.{self.cog}')
                 self.bot.load_extension(f'cogs.{self.cog}')
