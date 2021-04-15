@@ -6,9 +6,14 @@ async def botsays(ctx, input):
     await ctx.send(input) #, delete_after=20)
 
 
-class Talking(commands.Cog):
+class Talking(commands.Cog, help='Chat with the bot'):
     def __init__(self, bot):
         self.bot = bot
+
+    # events
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('Talking: ready')
 
     async def displayembed(self,ctx): #PASS CONTEXT AS ARG
         embed = discord.Embed(
@@ -30,7 +35,7 @@ class Talking(commands.Cog):
     @commands.command(name='hello')
     async def hello(self,ctx):
         await botsays(ctx, f'Hello, {ctx.message.author.mention}')
-        self.displayembed(ctx)
+        await self.displayembed(ctx)
         sys.stderr.write("HELLO SAID!")
 
 

@@ -9,7 +9,7 @@ import sys
 from cogs.talking import botsays
 
 
-class Error(commands.Cog):
+class Error(commands.Cog, help='Get error messages and debug ingormation'):
     def __init__(self, bot):
         self.bot = bot
 
