@@ -20,7 +20,7 @@ class Settings(commands.Cog):
     # commands
     @commands.group(name='settings', alisases=['options'], invoke_without_command=True, help='Accesses the settings of the bot: !settings <setting>')
     async def settings(self, ctx):
-        botsays('Change a setting with !settings <setting>.')
+        await botsays(ctx, 'Change a setting with !settings <setting>.')
 
 
 def setup(bot):
