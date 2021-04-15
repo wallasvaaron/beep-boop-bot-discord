@@ -29,7 +29,7 @@ class Talking(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self,ctx):
-        botsays(ctx, 'Hello')
+        await botsays(ctx, 'Hello')
 
 
 def setup(bot):
