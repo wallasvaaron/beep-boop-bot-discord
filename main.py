@@ -5,6 +5,9 @@ from discord.utils import get
 import os
 
 
+async def botsays(ctx, input):
+    await ctx.send(input) #, delete_after=20)
+
 COMMAND_PREFIX = '?'
 
 bot = commands.Bot(command_prefix=COMMAND_PREFIX)

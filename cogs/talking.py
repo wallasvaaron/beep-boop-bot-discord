@@ -2,8 +2,8 @@ import discord
 from discord.ext import commands
 import sys
 
-async def botsays(ctx, input):
-    await ctx.send(input) #, delete_after=20)
+from main import botsays
+
 
 # help='Chat with the bot'
 class Talking(commands.Cog):

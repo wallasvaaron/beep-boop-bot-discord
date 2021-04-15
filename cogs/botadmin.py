@@ -2,8 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands.errors import ExtensionAlreadyLoaded, ExtensionNotLoaded
 
-from main import list_of_cogs
-from cogs.talking import botsays
+from main import list_of_cogs, botsays
 
 list_of_restrictions = []
 
@@ -43,7 +42,6 @@ class BotAdmin(commands.Cog):
     async def botadmin(self, ctx):
         await botsays(ctx, 'Base for bot admin commands: !botadmin <command>')
 
-    list_of_restrictions.append(('!botadmin cog', role_ids))
     @botadmin.group(name='cog', invoke_without_command=True)
     @commands.has_any_role(830806207928205312)
     async def cog(self, ctx):

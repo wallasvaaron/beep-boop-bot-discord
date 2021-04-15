@@ -5,7 +5,7 @@ from discord.ext.commands.core import after_invoke
 from discord.ext.commands.errors import ExtensionAlreadyLoaded, ExtensionNotLoaded
 from discord.utils import get
 
-from cogs.talking import botsays
+from main import botsays
 
 # help='Change the bot\'s settings'
 class Settings(commands.Cog):

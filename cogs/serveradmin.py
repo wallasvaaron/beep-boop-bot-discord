@@ -5,8 +5,7 @@ from discord.ext.commands.errors import ExtensionAlreadyLoaded, ExtensionNotLoad
 from discord.utils import get
 
 import options.cog_options as cog_options
-from cogs.talking import botsays
-from cogs.botadmin import list_of_restrictions
+from main import botsays
 
 # help='Change server admin settings'
 class ServerAdmin(commands.Cog):
@@ -20,7 +19,7 @@ class ServerAdmin(commands.Cog):
     async def on_ready(self):
         print('ServerAdmin: ready')
 
-    list_of_restrictions.append(('!admin <command>', role_ids))
+    
     # command groups
     @commands.group(name='admin', aliases=['serveradmin', 'administrator'], invoke_without_command=True, help='Admin commands for the server: "!admin <command>" Has to have the "Administrator" role to use these commands.')
     async def admin(self, ctx):

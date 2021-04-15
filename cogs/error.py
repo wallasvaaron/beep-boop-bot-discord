@@ -6,7 +6,7 @@ from discord.ext.commands.errors import ExtensionAlreadyLoaded, ExtensionNotLoad
 from discord.utils import get
 import sys
 
-from cogs.talking import botsays
+from main import botsays
 
 # help='Get error messages and debug ingormation'
 class Error(commands.Cog):

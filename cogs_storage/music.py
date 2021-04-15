@@ -6,7 +6,7 @@ import youtube_dl
 import asyncio
 
 import options.format_options as format_options
-from cogs.talking import botsays
+from main import botsays
 
 # help='Play audio in a voice channel'
 class Music(commands.Cog):
