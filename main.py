@@ -8,7 +8,7 @@ import os
 COMMAND_PREFIX = '?'
 
 bot = commands.Bot(command_prefix=COMMAND_PREFIX)
-guild = bot.get_guild(441310016100892682)
+# guild = bot.get_guild(441310016100892682)
 
 @bot.event
 async def on_ready():
