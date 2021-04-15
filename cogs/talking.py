@@ -27,6 +27,10 @@ class Talking(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.Cog.listener()
+    async def on_message(self,ctx):
+        self.botsays(ctx, 'Hello')
+
 
 def setup(bot):
     bot.add_cog(Talking(bot))
