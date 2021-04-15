@@ -1,10 +1,6 @@
 import discord
-from discord import Activity, ActivityType
-from discord.utils import find
 from discord.ext import commands
-from discord.ext.commands.core import command, has_any_role
 from discord.ext.commands.errors import ExtensionAlreadyLoaded, ExtensionNotLoaded
-from discord.utils import get
 
 from main import list_of_cogs
 from cogs.talking import botsays

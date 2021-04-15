@@ -3,7 +3,6 @@ from discord.ext import commands
 import sys
 
 async def botsays(ctx, input):
-
     await ctx.send(input) #, delete_after=20)
 
 
@@ -11,7 +10,7 @@ class Talking(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def displayembed(self,ctx):
+    async def displayembed(self,ctx): #PASS CONTEXT AS ARG
         embed = discord.Embed(
             title='Title',
             description = 'This is a description.',
@@ -31,7 +30,7 @@ class Talking(commands.Cog):
     @commands.command(name='hello')
     async def hello(self,ctx):
         await botsays(ctx, f'Hello, {ctx.message.author.mention}')
-        self.displayembed()
+        self.displayembed(ctx)
         sys.stderr.write("HELLO SAID!")
 
 
