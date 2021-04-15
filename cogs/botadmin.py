@@ -42,8 +42,8 @@ class BotAdmin(commands.Cog):
     async def botadmin(self, ctx):
         await botsays(ctx, 'Base for bot admin commands: !botadmin <command>')
 
-    @botadmin.group(name='cog', invoke_without_command=True)
     @commands.has_any_role(830806207928205312)
+    @botadmin.group(name='cog', invoke_without_command=True)
     async def cog(self, ctx):
         await botsays(ctx, 'Base for bot\'s cog (category) commands: !botadmin cog <command>')
     
