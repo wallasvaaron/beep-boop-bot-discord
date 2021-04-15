@@ -34,10 +34,8 @@ class Talking(commands.Cog):
 
     @commands.command(name='hello')
     async def hello(self,ctx):
-        await botsays(ctx, f'Hello, {ctx.message.author.mention}')
+        await botsays(ctx, f'Hi there, {ctx.message.author.mention}!')
         await self.displayembed(ctx)
-        print("HELLO SAID!")
-
 
 def setup(bot):
     bot.add_cog(Talking(bot))
