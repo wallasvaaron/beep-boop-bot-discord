@@ -6,8 +6,20 @@ from discord.ext.commands.core import command, has_any_role
 from discord.ext.commands.errors import ExtensionAlreadyLoaded, ExtensionNotLoaded
 from discord.utils import get
 
-from main import list_of_cogs, list_of_restrictions
+from main import list_of_cogs
 from cogs.talking import botsays
+
+list_of_restrictions = []
+
+async def restrictions(ctx):
+    print(list_of_restrictions)
+    output = '**Role-restricted commands**\n*Command*           *Role(s) with access:*'
+    roles = ''
+    for i in list_of_restrictions:
+        for k in i[1]:
+            roles += f'    {ctx.guild.get_role(role_id=k)}\n'
+        output += f'\n{i[0]}            {roles}'
+    await botsays(ctx, output)
 
 class BotAdmin(commands.Cog):
     def __init__(self, bot):
