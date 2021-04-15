@@ -27,9 +27,9 @@ class Talking(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.Cog.listener()
-    async def on_message(self,ctx):
-        await botsays(ctx, 'Hello')
+    @commands.command(name='hello')
+    async def hello(self,ctx):
+        await botsays(ctx, f'Hello, {ctx.message.author.mention}')
 
 
 def setup(bot):
