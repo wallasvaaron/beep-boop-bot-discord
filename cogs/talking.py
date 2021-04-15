@@ -1,9 +1,5 @@
 import discord
 from discord.ext import commands
-from discord.ext.commands import bot
-from discord.ext.commands.core import after_invoke
-from discord.ext.commands.errors import ExtensionAlreadyLoaded, ExtensionNotLoaded
-from discord.utils import get
 
 async def botsays(ctx, input):
 
