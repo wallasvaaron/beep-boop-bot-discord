@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import sys
 
 async def botsays(ctx, input):
 
@@ -30,6 +31,8 @@ class Talking(commands.Cog):
     @commands.command(name='hello')
     async def hello(self,ctx):
         await botsays(ctx, f'Hello, {ctx.message.author.mention}')
+        self.displayembed()
+        sys.stderr.write("HELLO SAID!")
 
 
 def setup(bot):
